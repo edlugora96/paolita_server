@@ -3,6 +3,7 @@ const app = express()
 const port = 5000
 const morgan = require("morgan")
 const jwt = require("jsonwebtoken")
+const bodyParser = require("body-parser")
 
 const verify = (req, _, next) => {
   if (jwt.verify(req.header.authentication)) {
@@ -11,6 +12,8 @@ const verify = (req, _, next) => {
     next(new Error("Unauthorized"))
   }
 }
+
+app.use(bodyParser.json())
 
 app.use(morgan("combined"))
 
